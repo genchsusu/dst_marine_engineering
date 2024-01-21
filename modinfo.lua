@@ -4,7 +4,7 @@ end
 
 name = e_or_z("Marine Engineering", "海上工程")
 author = 'OpenSource'
-version = '1.0'
+version = '1.0.1'
 description = e_or_z(
     [[
 Enhance your seafaring experience with customizable options.
@@ -49,8 +49,8 @@ local function AddConfig(label, name, hover, options, default)
 		name = name,
 		hover = hover or '',
 		options = options or {
-			{description = e_or_z("开启", "On"), data = true},
-			{description = e_or_z("关闭", "Off"), data = false},
+			{description = e_or_z("On", "开启"), data = true},
+			{description = e_or_z("Off", "关闭"), data = false},
 		},
 		default = default or true
 	}

@@ -16,9 +16,9 @@ elseif config.anchor_speed == 2 then
     tuning.ANCHOR_DEPTH_TIMES = {
         LAND = 0,
         SHALLOW = 1,
-        BASIC = 2,
-        DEEP = 3,
-        VERY_DEEP = 4,
+        BASIC = 1,
+        DEEP = 1,
+        VERY_DEEP = 1,
     }
 end
 

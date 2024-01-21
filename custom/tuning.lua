@@ -4,7 +4,7 @@ local tuning = {}
 
 local config = Mod.config
 
-if config.anchor_speed == 1 then
+if config.anchor_speed then
     tuning.ANCHOR_DEPTH_TIMES = {
         LAND = 0,
         SHALLOW = 1,
@@ -12,14 +12,8 @@ if config.anchor_speed == 1 then
         DEEP = 3,
         VERY_DEEP = 4,
     }
-elseif config.anchor_speed == 2 then
-    tuning.ANCHOR_DEPTH_TIMES = {
-        LAND = 0,
-        SHALLOW = 1,
-        BASIC = 1,
-        DEEP = 1,
-        VERY_DEEP = 1,
-    }
+    -- wolfgang
+    tuning.MIGHTY_ANCHOR_SPEED = 4
 end
 
 for key, value in pairs(tuning) do
@@ -43,6 +37,12 @@ if config.power_mast then
     TUNING.BOAT.MAST.BASIC.SAIL_FORCE = 10
     TUNING.BOAT.MAST.MALBATROSS.MAX_VELOCITY = 20
     TUNING.BOAT.MAST.MALBATROSS.SAIL_FORCE = 10
+end
+
+-- mast falling speed
+if config.mast_speed then
+    TUNING.MIGHTY_SAIL_BOOST_STRENGTH = 30
+    TUNING.DEFAULT_SAIL_BOOST_STRENGTH = 20
 end
 
 -- anchor power

@@ -11,9 +11,10 @@ GLOBAL.Mod = {
     env = getfenv(1),
     config = {
         anchor_speed = GetModConfigData('anchor_speed'),
-        power_rudder = GetModConfigData('power_rudder'),
-        power_mast = GetModConfigData('power_mast'),
         power_anchor = GetModConfigData('power_anchor'),
+        mast_speed = GetModConfigData('mast_speed'),
+        power_mast = GetModConfigData('power_mast'),
+        power_rudder = GetModConfigData('power_rudder'),
         create_fish = GetModConfigData('create_fish'),
         no_boat_leak = GetModConfigData('no_boat_leak'),
     },

@@ -11,50 +11,31 @@ ArchorButton = Class(BaseButton, function(self)
     self:SetInitPosition(Vector3(210, 80, 0))
     self.boat_utils = BoatUtils()
     self.key_position = name .. "_position"
+    self.check_fn = function(inst) return self.boat_utils:IsAnchor(inst) end
 
     self:SetOnClick(function() self:OnClickfn() end)
 end)
 
 function ArchorButton:OnClickfn()
-    print("Archor button clicked")
+    print(self.name .. " clicked")
 
-    local anchors = self.boat_utils:FindSpecificEntities(ThePlayer, self.boat_utils.boat_control_range, function(inst) return self.boat_utils:IsAnchor(inst) end)
-    local total_count = #anchors
-    local raised_count = 0
-    print("Number of anchor found: " .. total_count)
-
-    for _, anchor in ipairs(anchors) do
-        if anchor:HasTag("anchor_raised") then
-            raised_count = raised_count + 1
-        end
-    end
-
-    local raise_all = raised_count <= total_count / 2
+    local anchors = self.boat_utils:FindSpecificEntities(ThePlayer, self.boat_utils.boat_control_range, self.check_fn)
+    local raise_all = self.boat_utils:CalculateRaiseAll(anchors, function(anchor)
+        return self.boat_utils:IsAnchorRaised(anchor)
+    end)
 
     for _, anchor in ipairs(anchors) do
         if raise_all and (not anchor:HasTag("anchor_raised") or anchor:HasTag("anchor_transitioning")) then
-            local agent = SpawnPrefab(ThePlayer.prefab)
-            agent.Transform:SetPosition(anchor.Transform:GetWorldPosition())
-            agent.AnimState:SetMultColour(1, 1, 1, 0)
-            local act = BufferedAction(agent, anchor, ACTIONS.RAISE_ANCHOR)
-            agent.components.locomotor:PushAction(act, true) 
             local remove_time = anchor.components.anchor:GetCurrentDepth()
-            print("Removing anchor in " .. remove_time .. " seconds")
-            agent:DoTaskInTime(remove_time, function()
-                agent:Remove()
-            end)
+            self.boat_utils:PerformActionOnEntity(anchor, ACTIONS.RAISE_ANCHOR, remove_time)
         elseif not raise_all and anchor:HasTag("anchor_raised") and not anchor:HasTag("anchor_transitioning") then
-            anchor.components.anchor:StartLoweringAnchor()
+            anchor.components.anchor:StartLoweringAnchor() -- Do the action without agent
         end
     end
 end
 
 function ArchorButton:IsVisible()
-    local target = FindEntity(ThePlayer, self.boat_utils.boat_control_range, function(inst)
-        return self.boat_utils:IsAnchor(inst)
-    end)
-    
-    return target ~= nil
+    return FindEntity(ThePlayer, self.boat_utils.boat_control_range, self.check_fn) ~= nil
 end
 
 return ArchorButton

@@ -98,13 +98,3 @@ AddPrefabPostInit("boat_grass", function(inst)
         inst:RemoveComponent("burnable")
     end
 end)
-
-local items = {"mast", "mast_malbatross", "oar", "oar_driftwood", "anchor", "steeringwheel", "boat_rotator"}
-
-for _, item in ipairs(items) do
-    AddPrefabPostInit(item, function(inst)
-        if inst.components.burnable ~= nil then
-            inst:RemoveComponent("burnable")
-        end
-    end)
-end

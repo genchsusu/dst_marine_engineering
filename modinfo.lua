@@ -4,7 +4,7 @@ end
 
 name = e_or_z("Marine Engineering", "海上工程")
 author = 'OpenSource'
-version = '1.0.3'
+version = '1.0.4'
 description = e_or_z(
     [[
 Enhance your seafaring experience with customizable options.

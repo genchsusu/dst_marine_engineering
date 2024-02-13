@@ -70,9 +70,13 @@ end
 
 AddPrefabPostInit("boat", function(inst)
     if config.no_boat_leak then
-        inst.components.health:SetAbsorptionAmount(1)
+        if inst.components.health ~= nil then
+            inst.components.health:SetAbsorptionAmount(1)
+        end
         inst:ListenForEvent("spawnnewboatleak", NoBoatLeak)
-        inst.components.hullhealth.leakproof = true
+        if inst.components.hullhealth ~= nil then
+            inst.components.hullhealth.leakproof = true
+        end
     end
     
     if config.create_fish then
@@ -86,7 +90,9 @@ end)
 
 AddPrefabPostInit("boat_grass", function(inst)
     if config.no_boat_leak then
-        inst.components.health:SetAbsorptionAmount(1)
+        if inst.components.health ~= nil then
+            inst.components.health:SetAbsorptionAmount(1)
+        end
         inst:ListenForEvent("spawnnewboatleak", NoBoatLeak)
     end
 

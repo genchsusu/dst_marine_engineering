@@ -62,7 +62,7 @@ function BoatUtils:PerformActionOnEntity(target, action, remove_time)
     -- create an agent
     local agent = SpawnPrefab(ThePlayer.prefab)
     -- make the agent invisible
-    -- agent.AnimState:SetMultColour(1, 1, 1, 0)
+    agent.AnimState:SetMultColour(1, 1, 1, 0)
     -- remove the agent's physics
     if agent.Physics then agent.Physics:SetActive(false) end
     -- set the agent's position to the target's position
